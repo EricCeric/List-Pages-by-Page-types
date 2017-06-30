@@ -1,0 +1,18 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+
+<script src="~/Business/Plugins/Admin/ListPagesByPageTypes/Assets/jquery-3.2.1.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function () {
+        let pagination = $(".page-number");
+        let selector = $("#pagetype-selector");
+        let result = $("#page-result");
+        let optionId = selector.children(":selected").attr("id");
+        let callback = '@Url.Action("LoadPagesFromPageType", "ListPagesByPageTypes")';
+
+        pagination.click(function () {
+            let page = parseInt($(this).attr("data-id"));
+            result.load(callback + "?id=" + optionId + "&page=" + page);
+        });
+    });
+</script>

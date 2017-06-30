@@ -1,0 +1,39 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Episerver_Playground.Business.Plugins.Admin.ListPagesByPageTypes.ListPagesViewModel>
+@using System.Web.Mvc.Html
+@using EPiServer.Core
+@using EPiServer.Editor
+
+@Html.Partial("~/Business/Plugins/Admin/ListPagesByPageTypes/Views/_PartialScript.cshtml")
+
+<p>Found <strong>@Model.TotalPages page@(Model.TotalPages > 1 ? "s" : string.Empty)</strong></p>
+
+<table class="epi-default">
+    <tbody>
+        <thead>
+            <tr>
+                <th class="epitableheading" scope="col">Status</th>
+                <th class="epitableheading" scope="col">Page name</th>
+                <th class="epitableheading" scope="col">Publish date</th>
+                <th class="epitableheading" scope="col">Edit page</th>
+            </tr>
+        </thead>
+
+        @foreach (PageData page in Model.PagesList)
+        {
+        <tr>
+            <td>@page.Status</td>
+            <td>@(page.Name.IsEmpty() ? "-" : page.Name)</td>
+            <td>@(page.StartPublish.HasValue ? page.StartPublish.Value.ToString("yyyy-MM-dd") : "-")</td>
+            <td><a href="@PageEditing.GetEditUrl(page.ContentLink)" target="_blank" class="epi-visibleLink">@(PageEditing.GetEditUrl(page.ContentLink) != null ? "Edit" : "")</a></td>
+        </tr>
+        }
+
+        @if (Model.NumberOfPages > 1)
+        {
+            @Html.Partial("~/Business/Plugins/Admin/ListPagesByPageTypes/Views/_Pagination.cshtml")
+        }
+        
+    </tbody>
+</table>
+
+<small>Viewing page @Model.CurrentPage of @Model.NumberOfPages</small>

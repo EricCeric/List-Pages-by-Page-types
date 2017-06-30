@@ -1,0 +1,26 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Episerver_Playground.Business.Plugins.Admin.ListPagesByPageTypes.ListPagesViewModel>
+
+<tr class="epipager">
+    <td colspan="4" style="background-image: url('/Business/Plugins/Admin/ListPagesByPageTypes/Assets/epi-table-pagination.gif');background-color: #fff; background-repeat: repeat-x; padding: 0.1em 0.4em;">
+        @if (Model.CurrentPage > 1)
+        {
+            <a class="page-number" style="font-weight:bold; padding: 0 0.1em; margin-left: 0.1em;" data-id="@Model.StartPage" href="#">&#171; First</a>
+        }
+        @for (int i = Model.StartPage; i <= Model.EndPage; i++)
+        {
+            if (i == Model.CurrentPage)
+            {
+                <span style="font-weight: bold; padding: 0 0.1em; margin-left: 0.1em;">@i</span>
+            }
+            else
+            {
+                <a style="font-weight:bold; padding: 0 0.1em; margin-left: 0.1em;" class="page-number" data-id="@i" href='#'>@i</a>
+            }
+        }
+
+        @if (Model.CurrentPage < Model.NumberOfPages)
+        {
+            <a class="page-number" style="font-weight:bold; padding: 0 0.1em; margin-left: 0.1em;" data-id="@Model.EndPage" href="#">Last &#187;</a>
+        }
+    </td>
+</tr>

@@ -1,0 +1,27 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+
+<script src="~/Business/Plugins/Admin/ListPagesByPageTypes/Assets/jquery-3.2.1.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    $(function () {
+        let selector = $("#pagetype-selector");
+        let result = $("#page-result");
+        let pagination = $(".page-number");
+        let initId = selector.children(":first").attr("id");
+        let callback = '@Url.Action("LoadPagesFromPageType", "ListPagesByPageTypes")';
+
+        showLoadingIcon();
+        result.load(callback + "?id=" + initId + "&page=1");
+
+        selector.change(function () {
+            let optionId = $(this).children(":selected").attr("id");
+            showLoadingIcon();
+            result.load(callback + "?id=" + optionId + "&page=1");
+        });
+
+        function showLoadingIcon() {
+            return result.html('<img src="@Url.Content("~/Business/Plugins/Admin/ListPagesByPageTypes/Assets/loading.gif")" /><div>Loading pages...</div>');
+        }
+
+    });
+</script>

@@ -1,0 +1,23 @@
+﻿@inherits System.Web.Mvc.WebViewPage<Episerver_Playground.Business.Plugins.Admin.ListPagesByPageTypes.ListPagesViewModel>
+@using System.Web.Mvc.Html
+@using EPiServer.DataAbstraction
+
+@{
+    Layout = null;
+}
+
+@Html.Partial("~/Views/Shared/EpiResources/_SystemStyles.cshtml")
+@Html.Partial("~/Business/Plugins/Admin/ListPagesByPageTypes/Views/_MainScript.cshtml")
+
+<div class="epi-contentContainer epi-padding">
+    <label for="pagetype-selector">Choose a page type:</label>
+    <select id="pagetype-selector">
+        @foreach (PageType pageType in Model.PageTypesList)
+        {
+            <option id="@pageType.ID">
+                @(!string.IsNullOrEmpty(pageType.DisplayName) ? pageType.DisplayName : pageType.Name)
+            </option>
+        }
+    </select>
+    <div id="page-result"></div>
+</div>
